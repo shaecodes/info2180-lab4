@@ -3,7 +3,7 @@ document.getElementById("searchButton").addEventListener("click", function() {
         url: "superheroes.php",
         type: "GET",
         success: function(data) {
-            alert(data);
+            window.alert(data);
         },
         error: function(error) {
             console.log("Error:", error);
