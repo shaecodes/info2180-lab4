@@ -63,10 +63,30 @@ $superheroes = [
   ], 
 ];
 
-?>
+function findSuperheroByAlias($input) {
+    global $superheroes;
+    foreach ($superheroes as $superhero) {
+        $alias = strtolower($superhero['alias']);
+        $input = strtolower($input);
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+        $inputWords = explode(' ', $input);
+
+        $match = true;
+        foreach ($inputWords as $word) {
+            if (strpos($alias, $word) === false) {
+                $match = false;
+                break;
+            }
+        }
+
+        if ($match) {
+            return $superhero;
+        }
+    }
+    return null;
+}
+
+$query = $_GET['query'] ?? '';
+$foundSuperhero = findSuperheroByAlias($query);
+echo json_encode($foundSuperhero);
+?>
